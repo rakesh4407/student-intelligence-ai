@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 # SparkAI – Student Performance Prediction and Recommendation System
 
 SparkAI is a full-stack AI-powered web application designed to predict student academic performance and provide personalized recommendations. The system leverages Machine Learning techniques to identify at-risk students and assist teachers, students, and administrators with data-driven insights.
@@ -231,11 +230,3 @@ RAKESH G
 Engineering Student
 AI / Machine Learning Minor Project
 ```
-=======
-# student-intelligence-ai
-AI-Based Student Performance, Dropout Risk and Career Guidance System
->>>>>>> 3f7f39e0fb3e74bd4c5d608f92264a141eae809c
-=======
-# student-intelligence-ai
-AI-Based Student Performance, Dropout Risk and Career Guidance System
->>>>>>> 3f7f39e0fb3e74bd4c5d608f92264a141eae809c
