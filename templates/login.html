@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SparkAI • Login</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lottie -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2563eb',
+            accent: '#22c55e'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-sky-50 flex items-center justify-center">
+
+<div class="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+
+  <!-- LEFT BRAND + LOTTIE PANEL -->
+  <div class="hidden md:flex flex-col justify-between p-10 text-white relative
+            bg-gradient-to-br from-slate-900 via-blue-900 to-sky-600">
+
+
+    <!-- Logo + Title (same line, no tagline) -->
+    <div class="flex items-center gap-3">
+      <div class="group w-10 h-10 rounded-xl bg-black flex items-center justify-center cursor-pointer">
+  <svg viewBox="0 0 24 24" class="w-6 h-6 text-white" fill="currentColor">
+    <rect x="6" y="5" width="12" height="3"
+          class="transition-transform duration-300 group-hover:-translate-y-0.5"/>
+    <rect x="6" y="10.5" width="12" height="3"/>
+    <rect x="6" y="16" width="12" height="3"
+          class="transition-transform duration-300 group-hover:translate-y-0.5"/>
+  </svg>
+</div>
+
+      <h1 class="text-3xl font-extrabold tracking-tight">
+        SparkAI
+      </h1>
+    </div>
+
+    <!-- Lottie Animation -->
+    <div class="flex justify-center items-center my-8">
+      <div id="loginLottie" class="w-64 h-64 -translate-x-6"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT LOGIN PANEL -->
+  <div class="p-10">
+    <h2 class="text-3xl font-extrabold mb-2">Welcome Back</h2>
+    <p class="text-slate-500 mb-8">Login to continue</p>
+
+    {% if error %}
+      <div class="mb-4 p-3 rounded-xl bg-red-100 text-red-700 text-sm">
+        {{ error }}
+      </div>
+    {% endif %}
+
+    <form method="POST" action="/login" class="space-y-5">
+
+      <div>
+        <label class="block text-sm font-medium">Role</label>
+        <select name="role" required class="w-full mt-1 px-4 py-3 rounded-xl border">
+          <option value="admin">Admin</option>
+          <option value="teacher">Teacher</option>
+          <option value="student">Student</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Username</label>
+        <input type="text" name="username" required
+               class="w-full mt-1 px-4 py-3 rounded-xl border"
+               placeholder="Enter username">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Password</label>
+        <input type="password" name="password" required
+               class="w-full mt-1 px-4 py-3 rounded-xl border"
+               placeholder="Enter password">
+      </div>
+
+      <button class="w-full py-3 rounded-xl bg-primary text-white font-semibold hover:bg-blue-700 transition">
+        Login
+      </button>
+    </form>
+    </p>
+  </div>
+
+</div>
+
+<!-- Lottie Init -->
+<script>
+  lottie.loadAnimation({
+    container: document.getElementById('loginLottie'),
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: '/static/lottie/STUDENT.json'
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SparkAI • Admin Dashboard</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563eb",
+              success: "#16a34a",
+              danger: "#ef4444",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body
+    class="bg-gradient-to-br from-slate-50 via-indigo-50 to-sky-50 text-slate-800"
+  >
+    <!-- ===== HEADER ===== -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+      <div
+        class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="group w-10 h-10 rounded-xl bg-black flex items-center justify-center cursor-pointer"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              class="w-6 h-6 text-white"
+              fill="currentColor"
+            >
+              <rect
+                x="6"
+                y="5"
+                width="12"
+                height="3"
+                class="transition-transform duration-300 group-hover:-translate-y-0.5"
+              />
+              <rect x="6" y="10.5" width="12" height="3" />
+              <rect
+                x="6"
+                y="16"
+                width="12"
+                height="3"
+                class="transition-transform duration-300 group-hover:translate-y-0.5"
+              />
+            </svg>
+          </div>
+
+          <div>
+            <h1 class="font-bold">SparkAI</h1>
+          </div>
+        </div>
+        <a href="/logout" class="text-danger font-medium">Logout</a>
+      </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main class="max-w-7xl mx-auto px-6 py-10 space-y-14">
+      <!-- ADD USER -->
+      <section class="bg-white rounded-3xl shadow p-8">
+        <h2 class="text-2xl font-bold mb-6">Add User Account</h2>
+        <form
+          action="/admin-add-user"
+          method="POST"
+          class="grid grid-cols-1 md:grid-cols-5 gap-4"
+        >
+          <input
+            name="username"
+            placeholder="Username"
+            required
+            class="px-4 py-3 rounded-xl border"
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            required
+            class="px-4 py-3 rounded-xl border"
+          />
+          <select name="role" required class="px-4 py-3 rounded-xl border">
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+            <option value="admin">Admin</option>
+          </select>
+          <input
+            name="roll_no"
+            placeholder="Roll No (student only)"
+            class="px-4 py-3 rounded-xl border"
+          />
+          <button
+            class="px-6 py-3 rounded-xl bg-primary text-white hover:bg-blue-700"
+          >
+            Add User
+          </button>
+        </form>
+      </section>
+
+      <!-- USERS TABLE -->
+      <section class="bg-white rounded-3xl shadow p-8">
+        <h2 class="text-2xl font-bold mb-6">All Users</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="text-slate-500 border-b">
+              <tr>
+                <th class="py-3 text-left">ID</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Roll No</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for u in users %}
+              <tr class="border-b hover:bg-slate-50 transition">
+                <td class="py-3">{{ u.id }}</td>
+                <td>{{ u.username }}</td>
+                <td class="capitalize">{{ u.role }}</td>
+                <td>{{ u.roll_no if u.roll_no else '-' }}</td>
+                <td>
+                  {% if u.role != 'admin' %}
+                  <a
+                    href="/admin-delete-user/{{ u.id }}"
+                    class="text-danger hover:underline"
+                    >Delete</a
+                  >
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CSV UPLOAD -->
+      <section class="bg-white rounded-3xl shadow p-8">
+        <h2 class="text-2xl font-bold mb-4">Upload Students CSV</h2>
+        <form
+          action="/admin-upload-csv"
+          method="POST"
+          enctype="multipart/form-data"
+          class="flex flex-wrap gap-4"
+        >
+          <input
+            type="file"
+            name="csv_file"
+            accept=".csv"
+            required
+            class="px-4 py-3 rounded-xl border"
+          />
+          <button
+            class="px-6 py-3 rounded-xl bg-success text-white hover:bg-green-700"
+          >
+            Upload CSV
+          </button>
+        </form>
+      </section>
+
+      <!-- ADD STUDENT -->
+      <section class="bg-white rounded-3xl shadow p-8">
+        <h2 class="text-2xl font-bold mb-6">Add Student Manually</h2>
+        <form
+          action="/admin-add-student"
+          method="POST"
+          class="grid grid-cols-1 md:grid-cols-3 gap-4"
+        >
+          <input
+            name="roll_no"
+            placeholder="Roll No"
+            required
+            class="px-4 py-3 rounded-xl border"
+          />
+          <input
+            name="name"
+            placeholder="Name"
+            required
+            class="px-4 py-3 rounded-xl border"
+          />
+          <input
+            name="username"
+            placeholder="Username"
+            required
+            class="px-4 py-3 rounded-xl border"
+          />
+          <input
+            name="password"
+            placeholder="Password"
+            required
+            class="px-4 py-3 rounded-xl border"
+          />
+          <input
+            name="attendance"
+            placeholder="Attendance %"
+            required
+            class="px-4 py-3 rounded-xl border"
+          />
+          <input
+            name="assignments"
+            placeholder="Assignments Score"
+            required
+            class="px-4 py-3 rounded-xl border"
+          />
+          <input
+            name="midterm"
+            placeholder="Midterm Score"
+            required
+            class="px-4 py-3 rounded-xl border"
+          />
+          <input
+            name="final"
+            placeholder="Final Score"
+            required
+            class="px-4 py-3 rounded-xl border"
+          />
+          <input
+            name="study_hours"
+            placeholder="Study Hours / Day"
+            required
+            class="px-4 py-3 rounded-xl border"
+          />
+          <select
+            name="performance"
+            class="px-4 py-3 rounded-xl border md:col-span-2"
+          >
+            <option>Poor</option>
+            <option>Average</option>
+            <option>Good</option>
+            <option>Excellent</option>
+          </select>
+          <button
+            class="px-6 py-3 rounded-xl bg-primary text-white hover:bg-blue-700 md:col-span-3"
+          >
+            Add Student
+          </button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

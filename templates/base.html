@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Student Performance AI{% endblock %}</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/a2e0e6ad65.js" crossorigin="anonymous"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+<div class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-slate-900 text-white p-5">
+        <div class="flex items-center gap-2 mb-8">
+            <i class="fa-solid fa-graduation-cap text-2xl text-blue-400"></i>
+            <h1 class="text-xl font-bold">StudentAI</h1>
+        </div>
+
+        <nav class="space-y-3 text-sm">
+            {% if session.role == 'admin' %}
+                <a href="/admin-dashboard" class="block hover:text-blue-400"><i class="fa fa-shield mr-2"></i>Admin</a>
+            {% endif %}
+
+            {% if session.role == 'teacher' %}
+                <a href="/teacher-dashboard" class="block hover:text-blue-400"><i class="fa fa-chart-line mr-2"></i>Dashboard</a>
+            {% endif %}
+
+            {% if session.role == 'student' %}
+                <a href="/student-dashboard" class="block hover:text-blue-400"><i class="fa fa-user mr-2"></i>My Profile</a>
+            {% endif %}
+
+            <a href="/chatbot" class="block hover:text-blue-400"><i class="fa fa-robot mr-2"></i>AI Assistant</a>
+            <a href="/logout" class="block text-red-400"><i class="fa fa-sign-out mr-2"></i>Logout</a>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 p-8">
+        {% block content %}{% endblock %}
+    </main>
+
+</div>
+
+</body>
+</html>

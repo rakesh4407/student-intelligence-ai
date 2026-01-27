@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SparkAI • Smart Student Performance Platform</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563eb",
+              accent: "#22c55e",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body
+    class="bg-gradient-to-br from-indigo-50 via-white to-sky-50 text-slate-800"
+  >
+    <!-- ===== NAVBAR ===== -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+      <div
+        class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="group w-10 h-10 rounded-xl bg-black flex items-center justify-center cursor-pointer"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              class="w-6 h-6 text-white"
+              fill="currentColor"
+            >
+              <rect
+                x="6"
+                y="5"
+                width="12"
+                height="3"
+                class="transition-transform duration-300 group-hover:-translate-y-0.5"
+              />
+              <rect x="6" y="10.5" width="12" height="3" />
+              <rect
+                x="6"
+                y="16"
+                width="12"
+                height="3"
+                class="transition-transform duration-300 group-hover:translate-y-0.5"
+              />
+            </svg>
+          </div>
+
+          <span class="font-bold text-lg">SparkAI</span>
+        </div>
+        <nav class="flex gap-6 text-sm font-medium">
+          <a href="#features" class="hover:text-primary">Features</a>
+          <a href="#how" class="hover:text-primary">How it Works</a>
+          <a
+            href="/login"
+            class="px-5 py-2 rounded-xl bg-primary text-white hover:bg-blue-700"
+            >Login</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section
+      class="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+    >
+      <div>
+        <h1 class="text-5xl font-extrabold leading-tight">
+          AI‑Powered Student Performance Intelligence
+        </h1>
+        <p class="text-slate-500 mt-5 text-lg">
+          SparkAI predicts academic performance, detects at‑risk students, and
+          provides personalized recommendations using Machine Learning.
+        </p>
+        <div class="mt-8 flex gap-4">
+          <a
+            href="/login"
+            class="px-7 py-3 rounded-xl bg-primary text-white text-lg hover:bg-blue-700"
+            >Get Started</a
+          >
+          <a
+            href="#features"
+            class="px-7 py-3 rounded-xl border text-lg hover:border-primary"
+            >Explore Features</a
+          >
+        </div>
+      </div>
+      <div class="relative">
+        <!-- Live Insight Card -->
+        <div
+          id="insightCard"
+          class="bg-white rounded-3xl shadow-2xl p-8 transition-all duration-500 ease-in-out transform hover:-translate-y-2 cursor-pointer"
+        >
+          <p class="text-sm text-slate-500">Live AI Insight</p>
+          <h3 id="riskTitle" class="text-2xl font-bold mt-2">
+            Student Risk: <span id="riskText" class="text-red-500">High</span>
+          </h3>
+          <p class="text-sm text-slate-500 mt-2">Recommendation:</p>
+          <p id="riskRec" class="text-slate-700 text-sm">
+            Increase study hours, attend all classes, and focus on weak
+            subjects.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Interactive Live Insight hover logic
+      const states = [
+        {
+          label: "High",
+          color: "text-red-500",
+          rec: "Increase study hours, attend all classes, and focus on weak subjects.",
+        },
+        {
+          label: "Moderate",
+          color: "text-yellow-500",
+          rec: "Maintain consistency and improve performance in weak areas.",
+        },
+        {
+          label: "Average",
+          color: "text-orange-500",
+          rec: "Good progress, but additional revision will help boost scores.",
+        },
+        {
+          label: "Low",
+          color: "text-green-600",
+          rec: "Excellent consistency. Keep following the same study routine.",
+        },
+      ];
+
+      const card = document.getElementById("insightCard");
+      const riskText = document.getElementById("riskText");
+      const riskRec = document.getElementById("riskRec");
+
+      let index = 0;
+
+      card.addEventListener("mouseenter", () => {
+        index = (index + 1) % states.length;
+
+        // slide + fade effect
+        card.classList.add("opacity-0", "translate-x-4");
+
+        setTimeout(() => {
+          riskText.textContent = states[index].label + " Risk";
+          riskText.className = states[index].color;
+          riskRec.textContent = states[index].rec;
+
+          card.classList.remove("opacity-0", "translate-x-4");
+          card.classList.add("opacity-100");
+        }, 250);
+      });
+    </script>
+
+    <!-- ===== FEATURES ===== -->
+    <section id="features" class="bg-white py-20">
+      <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-4xl font-extrabold text-center mb-12">
+          Platform Features
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            class="bg-slate-50 rounded-3xl p-8 shadow hover:shadow-xl transition"
+          >
+            <button
+              class="text-xl font-bold px-6 py-3 bg-blue-600 text-white rounded-lg"
+              onclick="openPage('/predict')"
+            >
+              AI Prediction
+            </button>
+          </div>
+          <div
+            class="bg-slate-50 rounded-3xl p-8 shadow hover:shadow-xl transition"
+          >
+            <button
+              class="text-xl font-bold px-6 py-3 bg-blue-600 text-white rounded-lg"
+              onclick="openPage('/login')"
+            >
+              Smart Dashboards
+            </button>
+          </div>
+          <div
+            class="bg-slate-50 rounded-3xl p-8 shadow hover:shadow-xl transition"
+          >
+            <button
+              class="text-xl font-bold px-6 py-3 bg-blue-600 text-white rounded-lg"
+              onclick="openPage('/chatbot')"
+            >
+              AI Guidance
+            </button>
+          </div>
+        </div>
+        <script>
+          function openPage(url) {
+            window.location.href = url;
+          }
+        </script>
+      </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section id="how" class="py-20">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-4xl font-extrabold text-center mb-12">
+          How SparkAI Works
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+          <div class="p-6 bg-white rounded-3xl shadow">
+            1️⃣ Collect Academic Data
+          </div>
+          <div class="p-6 bg-white rounded-3xl shadow">
+            2️⃣ ML Model Prediction
+          </div>
+          <div class="p-6 bg-white rounded-3xl shadow">3️⃣ Risk Analysis</div>
+          <div class="p-6 bg-white rounded-3xl shadow">
+            4️⃣ Personalized Guidance
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-slate-900 text-slate-300 py-10">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <h3 class="text-xl font-bold text-white">SparkAI</h3>
+        <p class="text-sm mt-2">
+          AI‑Driven Student Performance Prediction System
+        </p>
+        <p class="text-xs text-slate-400 mt-4">
+          © 2026 SparkAI • Minor Project • KRMU
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

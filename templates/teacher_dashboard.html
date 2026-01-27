@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SparkAI • Teacher Intelligence Hub</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563eb",
+              success: "#16a34a",
+              warning: "#f59e0b",
+              danger: "#ef4444",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+
+  <body
+    class="bg-gradient-to-br from-slate-50 via-indigo-50 to-sky-50 text-slate-800"
+  >
+    <!-- ===== TOP NAV ===== -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+      <div
+        class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="group w-10 h-10 rounded-xl bg-black flex items-center justify-center cursor-pointer"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              class="w-6 h-6 text-white"
+              fill="currentColor"
+            >
+              <rect
+                x="6"
+                y="5"
+                width="12"
+                height="3"
+                class="transition-transform duration-300 group-hover:-translate-y-0.5"
+              />
+              <rect x="6" y="10.5" width="12" height="3" />
+              <rect
+                x="6"
+                y="16"
+                width="12"
+                height="3"
+                class="transition-transform duration-300 group-hover:translate-y-0.5"
+              />
+            </svg>
+          </div>
+
+          <div>
+            <h1 class="font-bold">SparkAI</h1>
+          </div>
+        </div>
+
+        <nav class="flex gap-6 text-sm font-medium">
+          <a href="/teacher-dashboard" class="text-primary">Dashboard</a>
+          <a href="/prediction-history" class="hover:text-primary">History</a>
+          <a href="/chatbot" class="hover:text-primary">AI Chatbot</a>
+          <a href="/predict" class="hover:text-primary">Predict</a>
+          <a href="/logout" class="text-danger">Logout</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main class="max-w-7xl mx-auto px-6 py-10">
+      <!-- HERO -->
+      <section class="mb-10">
+        <h2 class="text-4xl font-extrabold tracking-tight">
+          Class Performance Insights
+        </h2>
+      </section>
+
+      <!-- KPI CARDS -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="bg-white rounded-3xl p-6 shadow hover:shadow-xl transition">
+          <p class="text-slate-500">Total Students</p>
+          <h3 class="text-4xl font-bold mt-3">{{ total_students }}</h3>
+        </div>
+        <div class="bg-white rounded-3xl p-6 shadow hover:shadow-xl transition">
+          <p class="text-slate-500">Avg Attendance</p>
+          <h3 class="text-4xl font-bold mt-3">{{ avg_attendance }}%</h3>
+        </div>
+        <div class="bg-white rounded-3xl p-6 shadow hover:shadow-xl transition">
+          <p class="text-slate-500">Avg Final Score</p>
+          <h3 class="text-4xl font-bold mt-3">{{ avg_final }}</h3>
+        </div>
+      </section>
+
+      <!-- ADVANCED SEARCH & FILTER PANEL -->
+      <section class="bg-white rounded-3xl shadow p-6 mb-12">
+        <h3 class="font-semibold mb-4">Student Search</h3>
+
+        <form
+          method="GET"
+          action="/teacher-dashboard"
+          class="grid grid-cols-1 md:grid-cols-4 gap-4"
+        >
+          <input
+            type="text"
+            name="search"
+            value="{{ search_query }}"
+            placeholder="Name or Roll No"
+            class="px-4 py-2 rounded-xl border"
+          />
+
+          <select name="risk" class="px-4 py-2 rounded-xl border">
+            <option value="">Risk Level</option>
+            <option
+              value="High"
+              {%
+              if
+              filter_risk=""
+              ="High"
+              %}selected{%
+              endif
+              %}
+            >
+              High Risk
+            </option>
+            <option
+              value="Medium"
+              {%
+              if
+              filter_risk=""
+              ="Medium"
+              %}selected{%
+              endif
+              %}
+            >
+              Medium Risk
+            </option>
+            <option
+              value="Low"
+              {%
+              if
+              filter_risk=""
+              ="Low"
+              %}selected{%
+              endif
+              %}
+            >
+              Low Risk
+            </option>
+          </select>
+
+          <select name="performance" class="px-4 py-2 rounded-xl border">
+            <option value="">Performance</option>
+            <option
+              value="Poor"
+              {%
+              if
+              filter_perf=""
+              ="Poor"
+              %}selected{%
+              endif
+              %}
+            >
+              Poor
+            </option>
+            <option
+              value="Average"
+              {%
+              if
+              filter_perf=""
+              ="Average"
+              %}selected{%
+              endif
+              %}
+            >
+              Average
+            </option>
+            <option
+              value="Good"
+              {%
+              if
+              filter_perf=""
+              ="Good"
+              %}selected{%
+              endif
+              %}
+            >
+              Good
+            </option>
+            <option
+              value="Excellent"
+              {%
+              if
+              filter_perf=""
+              ="Excellent"
+              %}selected{%
+              endif
+              %}
+            >
+              Excellent
+            </option>
+          </select>
+
+          <select name="sort" class="px-4 py-2 rounded-xl border">
+            <option value="">Sort By</option>
+            <option
+              value="attendance"
+              {%
+              if
+              sort_by=""
+              ="attendance"
+              %}selected{%
+              endif
+              %}
+            >
+              Attendance
+            </option>
+            <option
+              value="final_score"
+              {%
+              if
+              sort_by=""
+              ="final_score"
+              %}selected{%
+              endif
+              %}
+            >
+              Final Score
+            </option>
+          </select>
+
+          <button
+            class="md:col-span-4 px-6 py-3 rounded-xl bg-primary text-white hover:bg-blue-700"
+          >
+            Apply Filters
+          </button>
+        </form>
+      </section>
+
+      <!-- CHARTS -->
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <!-- BAR -->
+        <div class="bg-white rounded-3xl shadow p-6 hover:shadow-xl transition">
+          <div class="flex justify-between mb-4">
+            <h3 class="font-semibold">Performance Distribution</h3>
+            <span class="text-xs text-slate-400">Hover bars</span>
+          </div>
+          <canvas id="barChart" height="260"></canvas>
+        </div>
+
+        <!-- DONUT -->
+        <div class="bg-white rounded-3xl shadow p-6 hover:shadow-xl transition">
+          <div class="flex justify-between mb-4">
+            <h3 class="font-semibold">Performance Ratio</h3>
+            <span class="text-xs text-slate-400">Click slices</span>
+          </div>
+          <canvas id="pieChart" height="260"></canvas>
+        </div>
+      </section>
+      <!-- STUDENT TABLE -->
+      <section class="bg-white rounded-3xl shadow p-6">
+        <h3 class="font-semibold mb-4">Student Insights Table</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="text-slate-500 border-b">
+              <tr>
+                <th class="py-3 text-left">Roll</th>
+                <th>Name</th>
+                <th>Attendance</th>
+                <th>Final</th>
+                <th>Performance</th>
+                <th>Risk</th>
+                <th>AI Recommendation</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for s in at_risk_students %}
+              <tr class="border-b hover:bg-slate-50 transition">
+                <td class="py-3">{{ s.roll_no }}</td>
+                <td class="font-semibold text-primary">
+                  <a href="/student/{{ s.roll_no }}">{{ s.name }}</a>
+                </td>
+                <td>{{ s.attendance }}%</td>
+                <td>{{ s.final_score }}</td>
+                <td>{{ s.performance }}</td>
+                <td class="font-bold">{{ s.risk_level }}</td>
+                <td class="text-xs text-slate-500">{{ s.recommendation }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const labels = {{ perf_labels | safe }};
+      const values = {{ perf_values | safe }};
+
+      /* BAR CHART */
+      const barCtx = document.getElementById('barChart').getContext('2d');
+      new Chart(barCtx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Students',
+            data: values,
+            backgroundColor: '#2563eb',
+            hoverBackgroundColor: '#1e40af',
+            borderRadius: 10
+          }]
+        },
+        options: {
+          responsive: true,
+          animation: { duration: 1200, easing: 'easeOutQuart' },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#0f172a',
+              titleColor: '#fff',
+              bodyColor: '#e5e7eb',
+              cornerRadius: 8,
+              padding: 12
+            }
+          },
+          scales: {
+            x: { grid: { display: false } },
+            y: { beginAtZero: true }
+          },
+          onHover: (e, el) => {
+            e.native.target.style.cursor = el.length ? 'pointer' : 'default';
+          }
+        }
+      });
+
+      /* DONUT CHART */
+      const pieCtx = document.getElementById('pieChart').getContext('2d');
+      new Chart(pieCtx, {
+        type: 'doughnut',
+        data: {
+          labels,
+          datasets: [{
+            data: values,
+            backgroundColor: ['#16a34a','#2563eb','#f59e0b','#ef4444'],
+            hoverOffset: 14,
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          cutout: '70%',
+          animation: { duration: 1400, easing: 'easeOutCubic' },
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { padding: 18, font: { weight: '600' } }
+            },
+            tooltip: {
+              backgroundColor: '#0f172a',
+              titleColor: '#fff',
+              bodyColor: '#e5e7eb',
+              cornerRadius: 8,
+              padding: 12
+            }
+          },
+          onHover: (e, el) => {
+            e.native.target.style.cursor = el.length ? 'pointer' : 'default';
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

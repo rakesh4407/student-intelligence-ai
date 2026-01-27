@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SparkAI • Teacher Prediction History</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563eb",
+              success: "#16a34a",
+              warning: "#f59e0b",
+              danger: "#ef4444",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body
+    class="bg-gradient-to-br from-slate-50 via-indigo-50 to-sky-50 text-slate-800"
+  >
+    <!-- ===== TOP NAV ===== -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+      <div
+        class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="group w-10 h-10 rounded-xl bg-black flex items-center justify-center cursor-pointer"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              class="w-6 h-6 text-white"
+              fill="currentColor"
+            >
+              <rect
+                x="6"
+                y="5"
+                width="12"
+                height="3"
+                class="transition-transform duration-300 group-hover:-translate-y-0.5"
+              />
+              <rect x="6" y="10.5" width="12" height="3" />
+              <rect
+                x="6"
+                y="16"
+                width="12"
+                height="3"
+                class="transition-transform duration-300 group-hover:translate-y-0.5"
+              />
+            </svg>
+          </div>
+
+          <div>
+            <h1 class="font-bold">SparkAI</h1>
+          </div>
+        </div>
+
+        <nav class="flex gap-6 text-sm font-medium">
+          <a href="/teacher-dashboard" class="hover:text-primary">Dashboard</a>
+          <a href="/prediction-history" class="text-primary">History</a>
+          <a href="/chatbot" class="hover:text-primary">AI Chatbot</a>
+          <a href="/logout" class="text-danger">Logout</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main class="max-w-7xl mx-auto px-6 py-10">
+      <!-- HEADER -->
+      <section class="mb-8">
+        <h2 class="text-4xl font-extrabold">Prediction History</h2>
+      </section>
+
+      <!-- SEARCH & FILTER -->
+      <section class="bg-white rounded-3xl shadow p-6 mb-8">
+        <form
+          method="GET"
+          action="/prediction-history"
+          class="grid grid-cols-1 md:grid-cols-4 gap-4"
+        >
+          <input
+            type="text"
+            name="search"
+            placeholder="Search by name or roll no"
+            class="px-4 py-2 rounded-xl border"
+          />
+          <select name="label" class="px-4 py-2 rounded-xl border">
+            <option value="">Performance Label</option>
+            <option value="Excellent">Excellent</option>
+            <option value="Good">Good</option>
+            <option value="Average">Average</option>
+            <option value="Poor">Poor</option>
+          </select>
+          <select name="sort" class="px-4 py-2 rounded-xl border">
+            <option value="">Sort By</option>
+            <option value="date_desc">Latest First</option>
+            <option value="date_asc">Oldest First</option>
+          </select>
+          <button
+            class="px-6 py-2 rounded-xl bg-primary text-white hover:bg-blue-700"
+          >
+            Apply
+          </button>
+        </form>
+      </section>
+
+      <!-- HISTORY TABLE -->
+      <section class="bg-white rounded-3xl shadow p-6">
+        {% if history %}
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="text-slate-500 border-b">
+              <tr>
+                <th class="py-3 text-left">ID</th>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Predicted Label</th>
+                <th>Date & Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for h in history %}
+              <tr class="border-b hover:bg-slate-50 transition">
+                <td class="py-3">{{ h.id }}</td>
+                <td>{{ h.roll_no if h.roll_no is not none else '-' }}</td>
+                <td>{{ h.name if h.name else '-' }}</td>
+                <td>
+                  {% if h.predicted_label == 'Excellent' %}
+                  <span
+                    class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold"
+                    >Excellent</span
+                  >
+                  {% elif h.predicted_label == 'Good' %}
+                  <span
+                    class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold"
+                    >Good</span
+                  >
+                  {% elif h.predicted_label == 'Average' %}
+                  <span
+                    class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-semibold"
+                    >Average</span
+                  >
+                  {% else %}
+                  <span
+                    class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-semibold"
+                    >Poor</span
+                  >
+                  {% endif %}
+                </td>
+                <td>{{ h.date_time }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <p class="text-slate-500">No prediction records found.</p>
+        {% endif %}
+      </section>
+
+      <!-- BACK -->
+      <div class="mt-6">
+        <a href="/teacher-dashboard" class="text-primary font-medium"
+          >← Back to Dashboard</a
+        >
+      </div>
+    </main>
+  </body>
+</html>

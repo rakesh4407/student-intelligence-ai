@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SparkAI • Student History</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563eb",
+              success: "#16a34a",
+              warning: "#f59e0b",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body
+    class="bg-gradient-to-br from-indigo-50 via-white to-sky-50 text-slate-800"
+  >
+    <!-- ===== TOP NAV ===== -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+      <div
+        class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="group w-10 h-10 rounded-xl bg-black flex items-center justify-center cursor-pointer"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              class="w-6 h-6 text-white"
+              fill="currentColor"
+            >
+              <rect
+                x="6"
+                y="5"
+                width="12"
+                height="3"
+                class="transition-transform duration-300 group-hover:-translate-y-0.5"
+              />
+              <rect x="6" y="10.5" width="12" height="3" />
+              <rect
+                x="6"
+                y="16"
+                width="12"
+                height="3"
+                class="transition-transform duration-300 group-hover:translate-y-0.5"
+              />
+            </svg>
+          </div>
+
+          <div>
+            <h1 class="font-bold">SparkAI</h1>
+          </div>
+        </div>
+
+        <nav class="flex gap-6 text-sm font-medium">
+          <a href="/student-dashboard" class="hover:text-primary">Dashboard</a>
+          <a href="/student-history" class="text-primary">History</a>
+          <a href="/chatbot" class="hover:text-primary">AI Help</a>
+          <a href="/logout" class="text-red-500">Logout</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main class="max-w-6xl mx-auto px-6 py-10">
+      <!-- HERO -->
+      <section class="mb-10">
+        <h2 class="text-4xl font-extrabold">Prediction History</h2>
+        <p class="text-slate-500 mt-1">
+          Track how your AI-predicted performance changed over time
+        </p>
+      </section>
+
+      <!-- HISTORY TABLE -->
+      <section class="bg-white rounded-3xl shadow p-6">
+        {% if history %}
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="text-slate-500 border-b">
+              <tr>
+                <th class="py-3 text-left">#</th>
+                <th>Date & Time</th>
+                <th>Predicted Performance</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for h in history %}
+              <tr class="border-b hover:bg-slate-50 transition">
+                <td class="py-3">{{ loop.index }}</td>
+                <td>{{ h.date_time }}</td>
+                <td class="font-semibold">{{ h.predicted_label }}</td>
+                <td>
+                  {% if h.predicted_label == 'Excellent' or h.predicted_label ==
+                  'Good' %}
+                  <span
+                    class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs"
+                    >On Track</span
+                  >
+                  {% elif h.predicted_label == 'Average' %}
+                  <span
+                    class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs"
+                    >Needs Focus</span
+                  >
+                  {% else %}
+                  <span
+                    class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs"
+                    >At Risk</span
+                  >
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <p class="text-slate-500">No prediction history available yet.</p>
+        {% endif %}
+      </section>
+
+      <!-- ACTIONS -->
+      <section class="mt-8 flex gap-4">
+        <a
+          href="/student-dashboard"
+          class="px-6 py-3 rounded-xl bg-primary text-white hover:bg-blue-700"
+          >Back to Dashboard</a
+        >
+        <a
+          href="/chatbot"
+          class="px-6 py-3 rounded-xl bg-slate-800 text-white hover:bg-slate-900"
+          >Ask AI Assistant</a
+        >
+      </section>
+    </main>
+  </body>
+</html>

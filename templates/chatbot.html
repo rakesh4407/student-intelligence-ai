@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SparkAI Assistant</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lottie -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+
+    <style>
+      body {
+        overflow: hidden;
+        background: linear-gradient(135deg, #f8fafc, #eef2ff);
+      }
+
+      .glass {
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      }
+
+      .bubble-user {
+        background: linear-gradient(135deg, #2563eb, #60a5fa);
+        color: white;
+      }
+
+      .bubble-bot {
+        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+    </style>
+  </head>
+
+  <body class="h-screen w-screen flex items-center justify-center">
+    <!-- SOFT BACKGROUND ANIMATION -->
+    <div id="bg-lottie" class="absolute inset-0 opacity-20"></div>
+
+    <!-- CHAT CONTAINER -->
+    <div
+      class="relative z-10 w-full max-w-3xl h-[85vh] glass rounded-[32px] flex flex-col"
+    >
+      <!-- HEADER -->
+      <div
+        class="flex items-center justify-between px-8 py-6 border-b border-slate-200"
+      >
+        <div class="flex items-center gap-4">
+          <div
+            class="group w-10 h-10 rounded-xl bg-black flex items-center justify-center cursor-pointer"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              class="w-6 h-6 text-white"
+              fill="currentColor"
+            >
+              <rect
+                x="6"
+                y="5"
+                width="12"
+                height="3"
+                class="transition-transform duration-300 group-hover:-translate-y-0.5"
+              />
+              <rect x="6" y="10.5" width="12" height="3" />
+              <rect
+                x="6"
+                y="16"
+                width="12"
+                height="3"
+                class="transition-transform duration-300 group-hover:translate-y-0.5"
+              />
+            </svg>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-bold">SparkAI Assistant</h3>
+          </div>
+        </div>
+        <a
+          href="javascript:history.back()"
+          class="text-sm text-blue-600 hover:underline"
+          >← Dashboard</a
+        >
+      </div>
+
+      <!-- MESSAGES -->
+      <div id="chat" class="flex-1 overflow-y-auto px-8 py-6 space-y-4">
+        {% if history|length == 0 %}
+        <div class="max-w-lg bubble-bot px-5 py-4 rounded-3xl">
+          👋 Hi! I’m SparkAI. Ask me about attendance, CGPA, exams, or
+          improvement tips.
+        </div>
+        {% endif %} {% for m in history %} {% if m.sender == 'user' %}
+        <div
+          class="ml-auto max-w-lg bubble-user px-5 py-4 rounded-3xl animate-slide-right"
+        >
+          {{ m.text }}
+        </div>
+        {% else %}
+        <div
+          class="max-w-lg bubble-bot px-5 py-4 rounded-3xl animate-slide-left"
+        >
+          {{ m.text }}
+        </div>
+        {% endif %} {% endfor %}
+      </div>
+
+      <!-- INPUT -->
+      <form
+        method="POST"
+        action="/chatbot"
+        class="px-8 py-6 border-t border-slate-200 flex gap-4"
+      >
+        <input
+          name="message"
+          required
+          autocomplete="off"
+          placeholder="Ask  SparkAI anything…"
+          class="flex-1 px-6 py-4 rounded-full bg-white/70 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          class="px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold transition"
+        >
+          Send
+        </button>
+      </form>
+    </div>
+
+    <!-- ANIMATIONS -->
+    <style>
+      @keyframes slideLeft {
+        from {
+          transform: translateX(-16px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      @keyframes slideRight {
+        from {
+          transform: translateX(16px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      .animate-slide-left {
+        animation: slideLeft 0.35s ease-out;
+      }
+      .animate-slide-right {
+        animation: slideRight 0.35s ease-out;
+      }
+    </style>
+
+    <!-- LOTTIE BACKGROUND -->
+    <script>
+      lottie.loadAnimation({
+        container: document.getElementById("bg-lottie"),
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "https://assets7.lottiefiles.com/packages/lf20_jcikwtux.json",
+      });
+
+      const chat = document.getElementById("chat");
+      chat.scrollTop = chat.scrollHeight;
+    </script>
+  </body>
+</html>

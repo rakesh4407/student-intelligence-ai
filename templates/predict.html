@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SparkAI • Predict Performance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body
+    class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-sky-50 flex items-center justify-center"
+  >
+    <div class="w-full max-w-xl bg-white rounded-3xl shadow-2xl p-8">
+      <h1 class="text-3xl font-extrabold text-center mb-6">
+        Student Performance Prediction
+      </h1>
+
+      <form method="POST" action="/predict" class="space-y-4">
+        <input
+          name="attendance"
+          type="number"
+          step="0.1"
+          placeholder="Attendance (%)"
+          required
+          class="w-full px-4 py-3 border rounded-xl"
+        />
+        <input
+          name="assignments"
+          type="number"
+          step="0.1"
+          placeholder="Assignments Score"
+          required
+          class="w-full px-4 py-3 border rounded-xl"
+        />
+        <input
+          name="midterm"
+          type="number"
+          step="0.1"
+          placeholder="Midterm Score"
+          required
+          class="w-full px-4 py-3 border rounded-xl"
+        />
+        <input
+          name="final"
+          type="number"
+          step="0.1"
+          placeholder="Final Exam Score"
+          required
+          class="w-full px-4 py-3 border rounded-xl"
+        />
+        <input
+          name="hours"
+          type="number"
+          step="0.1"
+          placeholder="Study Hours / Day"
+          required
+          class="w-full px-4 py-3 border rounded-xl"
+        />
+
+        <button
+          class="w-full py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700"
+        >
+          Predict Performance
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

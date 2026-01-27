@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SparkAI • Student AI Report</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563eb",
+              success: "#16a34a",
+              warning: "#f59e0b",
+              danger: "#ef4444",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body
+    class="bg-gradient-to-br from-sky-50 via-white to-indigo-50 text-slate-800"
+  >
+    <!-- ===== HEADER ===== -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+      <div
+        class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="group w-10 h-10 rounded-xl bg-black flex items-center justify-center cursor-pointer"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              class="w-6 h-6 text-white"
+              fill="currentColor"
+            >
+              <rect
+                x="6"
+                y="5"
+                width="12"
+                height="3"
+                class="transition-transform duration-300 group-hover:-translate-y-0.5"
+              />
+              <rect x="6" y="10.5" width="12" height="3" />
+              <rect
+                x="6"
+                y="16"
+                width="12"
+                height="3"
+                class="transition-transform duration-300 group-hover:translate-y-0.5"
+              />
+            </svg>
+          </div>
+
+          <div>
+            <h1 class="font-bold">SparkAI</h1>
+          </div>
+        </div>
+
+        <nav class="flex gap-6 text-sm font-medium">
+          <a href="/teacher-dashboard" class="hover:text-primary">Dashboard</a>
+          <a href="/chatbot" class="hover:text-primary">AI Help</a>
+          <a href="/logout" class="text-red-500">Logout</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main class="max-w-5xl mx-auto px-6 py-10">
+      <!-- HERO CARD -->
+      <section class="bg-white rounded-3xl shadow p-8 mb-10">
+        <h2 class="text-3xl font-extrabold mb-2">
+          Student Performance Summary
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <div>
+            <p><span class="font-semibold">Name:</span> {{ name }}</p>
+            <p><span class="font-semibold">Roll No:</span> {{ roll_no }}</p>
+          </div>
+          <div>
+            <p>
+              <span class="font-semibold">Actual Performance:</span> {{
+              performance }}
+            </p>
+            <p>
+              <span class="font-semibold">AI Predicted Performance:</span> {{
+              predicted_performance }}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- METRICS -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div class="bg-white rounded-3xl shadow p-6 text-center">
+          <p class="text-slate-500">Attendance</p>
+          <h3 class="text-3xl font-bold mt-2">{{ attendance }}%</h3>
+        </div>
+        <div class="bg-white rounded-3xl shadow p-6 text-center">
+          <p class="text-slate-500">Final Score</p>
+          <h3 class="text-3xl font-bold mt-2">{{ final }}</h3>
+        </div>
+        <div class="bg-white rounded-3xl shadow p-6 text-center">
+          <p class="text-slate-500">Risk Level</p>
+          <h3 class="text-3xl font-bold mt-2">{{ risk_level }}</h3>
+        </div>
+      </section>
+
+      <!-- AI RECOMMENDATION -->
+      <section class="bg-white rounded-3xl shadow p-8 mb-10">
+        <h3 class="text-xl font-semibold mb-3">
+          Personalized AI Recommendation
+        </h3>
+        <p class="text-slate-600 leading-relaxed">{{ recommendation }}</p>
+      </section>
+
+      <!-- ACTIONS -->
+      <section class="flex gap-4">
+        <a
+          href="/student-report/{{ roll_no }}"
+          class="px-6 py-3 rounded-xl bg-primary text-white hover:bg-blue-700"
+          >Download PDF Report</a
+        >
+        <a
+          href="/chatbot"
+          class="px-6 py-3 rounded-xl bg-slate-800 text-white hover:bg-slate-900"
+          >Ask AI Assistant</a
+        >
+      </section>
+    </main>
+  </body>
+</html>
