@@ -60,7 +60,7 @@ This project is developed as a **Final Year Engineering Project** and follows bo
   - Attendance improvement
   - Study planning
   - Exam preparation
-  - GPA enhancement
+  - CGPA enhancement
 - Integrated clean and modern UI
 
 ---
