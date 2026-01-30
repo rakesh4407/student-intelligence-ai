@@ -3,7 +3,7 @@
 
 SparkAI is a full-stack AI-powered web application designed to predict student academic performance and provide personalized recommendations. The system leverages Machine Learning techniques to identify at-risk students and assist teachers, students, and administrators with data-driven insights.
 
-This project is developed as a **Final Year Engineering Project** and follows both **academic (IEEE)** and **industry-level** standards.
+This project is developed as a **2nd Year Engineering Project** and follows both **academic (IEEE)** and **industry-level** standards.
 
 ---
 
