@@ -1,9 +1,9 @@
-
 # SparkAI – Student Performance Prediction and Recommendation System
 
-SparkAI is a full-stack AI-powered web application designed to predict student academic performance and provide personalized recommendations. The system leverages Machine Learning techniques to identify at-risk students and assist teachers, students, and administrators with data-driven insights.
+SparkAI is a full-stack, AI-powered web application designed to predict student academic performance and provide personalized recommendations.  
+The system uses Machine Learning techniques to identify at-risk students and support teachers, students, and administrators with data-driven insights.
 
-This project is developed as a **2nd Year Engineering Project** and follows both **academic (IEEE)** and **industry-level** standards.
+This project is developed as a **2nd Year Engineering / BCA (AI & DS) Minor Project** and follows  **industry-level** standards.
 
 ---
 
@@ -11,20 +11,22 @@ This project is developed as a **2nd Year Engineering Project** and follows both
 
 ### 🔐 Role-Based Access Control
 
-- **Admin**
-  - Add / delete users
-  - Upload student data via CSV
-  - Manage student and user records
-- **Teacher**
-  - View analytics dashboard
-  - Identify at-risk students
-  - View prediction history
-  - Download AI-generated reports
-- **Student**
-  - View personal academic dashboard
-  - Receive AI-based recommendations
-  - Track prediction history
-  - Download performance PDF report
+**Admin**
+- Add / delete users  
+- Upload student data via CSV  
+- Manage student and user records  
+
+**Teacher**
+- View analytics dashboard  
+- Identify at-risk students  
+- View prediction history  
+- Download AI-generated reports  
+
+**Student**
+- View personal academic dashboard  
+- Receive AI-based recommendations  
+- Track prediction history  
+- Download performance PDF report  
 
 ---
 
@@ -46,54 +48,56 @@ This project is developed as a **2nd Year Engineering Project** and follows both
 
 ### 📊 Dashboards & Analytics
 
-- Teacher analytics dashboard
-- Student performance dashboard
-- Prediction history logs
-- CSV-based bulk student upload
+- Teacher analytics dashboard  
+- Student performance dashboard  
+- Prediction history logs  
+- CSV-based bulk student upload  
 
 ---
 
 ### 💬 AI Chatbot
 
-- Rule-based AI academic assistant
+- Rule-based AI academic assistant  
 - Provides guidance on:
-  - Attendance improvement
-  - Study planning
-  - Exam preparation
-  - CGPA enhancement
-- Integrated clean and modern UI
+  - Attendance improvement  
+  - Study planning  
+  - Exam preparation  
+  - CGPA enhancement  
 
 ---
 
 ### 📄 PDF Report Generation
 
-- AI-generated student progress report
+- AI-generated student progress report  
 - Includes:
-  - Academic metrics
-  - Predicted performance
-  - Risk level
-  - Personalized recommendations
+  - Academic metrics  
+  - Predicted performance  
+  - Risk level  
+  - Personalized recommendations  
 
 ---
 
 ## 🧠 Machine Learning Model Details
 
-- **Algorithm**: Random Forest Classifier
-- **Library**: Scikit-learn
-- **Input Features**:
-  - Attendance
-  - Assignment score
-  - Midterm score
-  - Final exam score
-  - Study hours per day
-- **Target Variable**:
-  - Performance category
+- **Algorithm**: Random Forest Classifier  
+- **Library**: Scikit-learn  
+
+**Input Features**
+- Attendance  
+- Assignment score  
+- Midterm score  
+- Final exam score  
+- Study hours per day  
+
+**Target Variable**
+- Performance category  
 
 The trained model and label encoder are serialized using `joblib`.
 
 ---
 
 ## 🗂 Project Structure
+
 
 SparkAI-Student-Performance-Prediction/
 │
