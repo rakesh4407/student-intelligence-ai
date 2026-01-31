@@ -140,89 +140,32 @@ Copy code
 
 
 
-```bash
-cd EduAI-Student-Performance-Prediction
-2️⃣ Create Virtual Environment
-bash
-Copy code
+# Clone the repository
+git clone https://github.com/rakesh4407/student-intelligence-ai.git
+
+# Navigate to project directory
+cd student-intelligence-ai
+
+# Create virtual environment
 python -m venv venv
-Activate the environment:
 
-Windows
+# Activate virtual environment
 
-bash
-Copy code
+# Windows
 venv\Scripts\activate
-macOS / Linux
 
-bash
-Copy code
+# macOS / Linux
 source venv/bin/activate
-3️⃣ Install Dependencies
-bash
-Copy code
+
+# Install dependencies
 pip install -r requirements.txt
-4️⃣ Train the Machine Learning Model
-bash
-Copy code
+
+# Train the Machine Learning model
 python model_train.py
-5️⃣ Run the Application
-bash
-Copy code
+
+# Run the application
 python app.py
 
-📂 Dataset
-The project uses a synthetic student dataset (student_data.csv) created for academic and research purposes.
-
-Dataset Columns
-roll_no
-
-name
-
-attendance
-
-assignments_score
-
-midterm_score
-
-final_score
-
-study_hours
-
-performance
-
-🧪 Model Evaluation Metrics
-Accuracy
-
-Precision
-
-Recall
-
-F1-Score
-
-Confusion Matrix
-
-(Model evaluation results are displayed during training.)
-
-📌 Use Cases
-Early identification of at-risk students
-
-Personalized academic guidance
-
-Decision support for teachers
-
-Educational data analytics
-
-🔮 Future Enhancements
-Deep Learning-based models
-
-Large Language Model (LLM) powered chatbot
-
-Real-time analytics
-
-Cloud deployment
-
-Mobile-first responsive UI
 
 👨‍🎓 Author
 RAKESH G
