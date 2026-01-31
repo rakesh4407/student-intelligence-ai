@@ -134,10 +134,9 @@ Copy code
 
 ## ⚙️ Installation & Setup
 
-### 1️⃣ Clone the Repository
+
 
 ```bash
-git clone https://github.com/omdhanwat368-create/EduAI-Student-Performance-Prediction.git
 cd EduAI-Student-Performance-Prediction
 2️⃣ Create Virtual Environment
 bash
@@ -167,11 +166,7 @@ python model_train.py
 bash
 Copy code
 python app.py
-Open your browser and visit:
 
-cpp
-Copy code
-http://127.0.0.1:5000
 📂 Dataset
 The project uses a synthetic student dataset (student_data.csv) created for academic and research purposes.
 
